@@ -1,0 +1,199 @@
+-----------------------
+DeepCNF_Package (v1.02)
+date: 2015.05.30
+-----------------------
+
+Title:
+Training Conditional Random Fields by Maximizing AUC
+
+Author: Sheng Wang 
+Contact email: realbigws@gmail.com 
+--------------------------------------------------------
+
+
+=========
+Abstract:
+=========
+
+1. The training program of Deep Convolutional Neural Filed ( DeepCNF ) 
+for maximizing (1) log probability, (2) posterior probability , or (3) AUC value.
+
+2. The predicting program of DeepCNF for a given feature file 
+by using a trained model.
+
+
+
+========
+Install:
+========
+
+1. download the package
+
+git clone https://github.com/realbigws/DeepCNF_AUC/
+cd DeepCNF_AUC/
+
+
+2. compile
+
+cd source_code/
+        make
+cd ../
+
+
+
+======
+Usage:
+======
+
+1. DeepCNF_Train
+
+Usage :
+
+mpirun -np NP ./DeepCNF_Train -r train_file -t test_file
+             -w window_str -d node_str -s state_num -l feat_num [-S feat_select]
+            [-n finetune_num] [-f finetune_reg] [-m init_model] [-o out_root]
+            [-G gate_function] [-W label_weight] [-M method] [-D AUC_degree]
+Options:
+
+-np NP :             number of processors.
+
+-r train_file :      training file.
+
+-t test_file :       testing file.
+
+-w window_str :      window string for DeepCNF. e.g., '5,5'
+
+-d node_str :        node string for DeepCNF. e.g., '40,20'
+
+-s state_num :       state number.
+
+-l feat_num :        feature number at each position.
+
+-S feat_select :     feature selection. e.g., '1-7,9' [default uses all features]
+
+-n finetune_num :    fine-tune iteration number. [default is 200]
+
+-f finetune_reg :    fine-tune regularizer. [default is 0.5]
+
+-m init_model :      file for initial model parameters. [optional, and default is NULL]
+
+-o out_root :        output directory for trained models. [optional, and default is 'MODELS/']
+
+-G gate_function :   gate function type: sigmoid (1), tanh (2), and relu (0). [default is 1]
+
+-M method :          maximize log_prob (0), posterior_prob (1), or AUC (2). [default is 0]
+
+-W label_weight :    label weight. e.g., '0.1,0.9'. [default is 1 for each label]
+
+-D AUC_degree :      degree (1-30) of polynomials for AUC [default is 3].
+
+-------------------------------------
+
+
+2. DeepCNF_Pred
+
+Usage :
+
+./DeepCNF_Pred -i input_file -w window_str -d node_str -s state_num -l feat_num
+               -m init_model [-S feat_select]
+Options:
+
+-i input_file :      input feature file.
+
+-w window_str :      window string for DeepCNF. e.g., '5,5'
+
+-d node_str :        node string for DeepCNF. e.g., '40,20'
+
+-s state_num :       state number.
+
+-l feat_num :        feature number at each position.
+
+-m init_model :      file for trained model.
+
+-S feat_select :     feature selection. e.g., '1-7,9' [default uses all features]
+
+---------------------------------------
+
+
+
+========
+Example:
+========
+
+1. Maximize log probability:
+
+cd examples/
+	./DeepCNF_Train -r 2fzlA.reso -t 2fzlA.reso -w 5 -d 5 -s 3 -l 40 -n 50
+cd ../
+
+---------------------
+
+2. Maximize AUC value:
+
+cd examples/
+	./DeepCNF_Train -r 1kq1S.feat -t 1kq1S.feat -w 5 -d 5 -s 2 -l 129 -n 50 -M 2 
+cd ../
+
+---------------------
+
+3. Predict the labels of a given feature file by using a certain model:
+
+cd examples/
+	./DeepCNF_Pred -i 1kq1S.feat -w 5 -d 5 -s 2 -l 129 -m model.10
+cd ../
+
+
+
+==================
+Input file format:
+==================
+
+1. Training data format
+
+//-> data format ( length, features, labels [should be authentic] )
+//-> example below:
+
+78
+feat1 feat2 feat3, ..., featN
+....  (with 78 feature lines)
+0
+1
+0
+2
+...  ( with 78 label lines)
+54
+feat1 feat2 feat3, ..., featN
+....  (with 54 feature lines)
+0
+1
+0
+2
+...  ( with 54 label lines)
+
+----------------------------------
+
+
+2. Testing data format
+
+//-> data format ( length, features, labels [can be anything] )
+//-> example below:
+
+78
+feat1 feat2 feat3, ..., featN
+....  (with 78 feature lines)
+-1
+-1
+-1
+-1
+...  ( with 78 label lines)
+54
+feat1 feat2 feat3, ..., featN
+....  (with 54 feature lines)
+-1
+-1
+-1
+-1
+...  ( with 54 label lines)
+
+
+
