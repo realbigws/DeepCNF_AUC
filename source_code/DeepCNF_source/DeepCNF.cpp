@@ -121,13 +121,29 @@ double DeepCNF_Seq::GateOut(double sum)
 {
 	if(Gate_Function==1)       //-> tanh 
 	{
-		double value=exp(-2.0*sum);
-		return (double)( (1.0-value)/(1.0+value) );
+		if(sum>=0)
+		{
+			double value=exp(-2.0*sum);
+			return (double)( (1.0-value)/(1.0+value) );
+		}
+		else
+		{
+			double value=exp(2.0*sum);
+			return (double)( 1.0 - 2.0/(1.0+value) );
+		}
 	}
 	else if(Gate_Function==2)  //-> sigmoid
 	{
-		double value=exp(-1.0*sum);
-		return (double)( 1.0/(1.0+value) ); 
+		if(sum>=0)
+		{
+			double value=exp(-1.0*sum);
+			return (double)( 1.0/(1.0+value) );
+		}
+		else
+		{
+			double value=exp(1.0*sum);
+			return (double) (1.0*value/(1.0+value) );
+		}
 	}
 	else                       //-> relu
 	{
