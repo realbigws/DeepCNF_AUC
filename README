@@ -8,6 +8,17 @@ Training Conditional Random Fields by Maximizing AUC
 
 Author: Sheng Wang 
 Contact email: realbigws@gmail.com 
+
+References:
+1. AUC-maximized Deep Convolutional Neural Fields for Protein Sequence Labeling
+	Sheng Wang#, Siqi Sun, Jinbo Xu
+	ECML/PKDD, 2016
+
+2. AUCpreD: Proteome-level Protein Disorder Prediction by AUC-maximized Deep Convolutional Neural Fields
+	Sheng Wang#, Jianzhu Ma, Jinbo Xu
+	ECCB, 2016
+	Bioinformatics, 2016
+
 --------------------------------------------------------
 
 
