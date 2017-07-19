@@ -43,11 +43,22 @@ Install:
 git clone https://github.com/realbigws/DeepCNF_AUC/
 cd DeepCNF_AUC/
 
++++++++++++++++++++++
 
 2. compile
 
+2.1 compile under single CPU
+
 cd source_code/
         make
+cd ../
+
+-------------
+
+2.2 compile under MPI/OpenMP
+
+cd source_code/
+	make mpi
 cd ../
 
 

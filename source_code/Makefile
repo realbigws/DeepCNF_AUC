@@ -16,5 +16,12 @@ all:
 	cd $(DeepCNF_Pred_Dir)&&make
 	mv $(DeepCNF_Pred_Dir)$(DeepCNF_Pred_EXE) ../
 
+mpi:
+	cd $(DeepCNF_Train_Dir)&&make mpi
+	mv ${DeepCNF_Train_Dir}$(DeepCNF_Train_EXE) ../
+	cd $(DeepCNF_Pred_Dir)&&make mpi
+	mv $(DeepCNF_Pred_Dir)$(DeepCNF_Pred_EXE) ../
+	
+
 # clean all the temp files
 clean:
