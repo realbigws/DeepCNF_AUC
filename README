@@ -167,6 +167,15 @@ cd examples/
 cd ../
 
 
+---------------------
+
+4. make feature file for DeepCNF
+
+cd examples/
+	./DeepCNF_FeatMake 5fgnA.profile 5fgnA.top > 5fgnA.feat
+cd ../
+
+
 
 ==================
 Input file format:
