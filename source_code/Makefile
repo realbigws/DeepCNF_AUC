@@ -15,12 +15,16 @@ all:
 	mv ${DeepCNF_Train_Dir}$(DeepCNF_Train_EXE) ../
 	cd $(DeepCNF_Pred_Dir)&&make
 	mv $(DeepCNF_Pred_Dir)$(DeepCNF_Pred_EXE) ../
+	$(CXX) DeepCNF_FeatMake.cpp $(FLAG) -o DeepCNF_FeatMake
+	mv DeepCNF_FeatMake ../
 
 mpi:
 	cd $(DeepCNF_Train_Dir)&&make mpi
 	mv ${DeepCNF_Train_Dir}$(DeepCNF_Train_EXE) ../
 	cd $(DeepCNF_Pred_Dir)&&make mpi
 	mv $(DeepCNF_Pred_Dir)$(DeepCNF_Pred_EXE) ../
+	$(CXX) DeepCNF_FeatMake.cpp $(FLAG) -o DeepCNF_FeatMake
+	mv DeepCNF_FeatMake ../
 	
 
 # clean all the temp files
