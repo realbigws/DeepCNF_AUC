@@ -172,7 +172,7 @@ cd ../
 4. make feature file for DeepCNF
 
 cd examples/
-	./DeepCNF_FeatMake 5fgnA.profile 5fgnA.top > 5fgnA.feat
+	./DeepCNF_FeatMake 5fgnA.profile 5fgnA.label > 5fgnA.feat
 cd ../
 
 
