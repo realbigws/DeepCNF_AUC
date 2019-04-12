@@ -109,8 +109,16 @@ int Load_Matrix(string &input_file, vector < vector < double > > &output_mat)
 //------ load label file -------//
 //-> example
 /*
->1a0sP
-0000000001111111111111111111
+0
+0
+0
+1
+1
+0
+0
+1
+1
+...
 */
 int Load_LAB_File(string &lab_file,vector <int> &lab_number)
 {
@@ -120,26 +128,18 @@ int Load_LAB_File(string &lab_file,vector <int> &lab_number)
 	//read
 	fin.open(lab_file.c_str(), ios::in);
 	if(fin.fail()!=0)return -1;
-	//skip
-	for(int i=0;i<2;i++)
-	{
-		if(!getline(fin,buf,'\n'))
-		{
-			fprintf(stderr,"file %s format bad!\n",lab_file.c_str());
-			exit(-1);
-		}
-	}
 	//load
 	lab_number.clear();
 	int count=0;
-	for(int i=0;i<(int)buf.length();i++)
+	for(;;)
 	{
-		char c=buf[i];
-		int lab=c-'0';
+		if(!getline(fin,buf,'\n'))break;
+		int lab=atoi(buf.c_str());
 		lab_number.push_back(lab);
+		count++;
 	}
 	//return
-	return (int)buf.length();
+	return count;
 }
 
 
@@ -194,7 +194,7 @@ int main(int argc,char **argv)
 		if(argc<3)
 		{
 			printf("DeepCNF_FeatMake <matrix_file> <label_file> \n");
-			printf("[note]: the label_file should be two lines !!! \n");
+			printf("[note]: the length of label_file should be the same as matrix_file. \n");
 			exit(-1);
 		}
 		string matrix_file=argv[1];
